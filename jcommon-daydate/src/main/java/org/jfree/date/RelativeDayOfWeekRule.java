@@ -43,6 +43,8 @@
 
 package org.jfree.date;
 
+import org.jfree.date.SerialDate.*;
+
 /**
  * An annual date rule that returns a date for each year based on (a) a
  * reference rule; (b) a day of the week; and (c) a selection parameter
@@ -70,7 +72,7 @@ public class RelativeDayOfWeekRule extends AnnualDateRule {
      * Default constructor - builds a rule for the Monday following 1 January.
      */
     public RelativeDayOfWeekRule() {
-        this(new DayAndMonthRule(), SerialDate.MONDAY, SerialDate.FOLLOWING);
+        this(new DayAndMonthRule(), Weekday.MONDAY.index, SerialDate.FOLLOWING);
     }
 
     /**
@@ -174,8 +176,8 @@ public class RelativeDayOfWeekRule extends AnnualDateRule {
     public SerialDate getDate(final int year) {
 
         // check argument...
-        if ((year < SerialDate.MINIMUM_YEAR_SUPPORTED)
-            || (year > SerialDate.MAXIMUM_YEAR_SUPPORTED)) {
+        if ((year < SpreadsheetDateFactory.getMinimumYear())
+            || (year > SpreadsheetDateFactory.getMaximumYear())) {
             throw new IllegalArgumentException(
                 "RelativeDayOfWeekRule.getDate(): year outside valid range.");
         }

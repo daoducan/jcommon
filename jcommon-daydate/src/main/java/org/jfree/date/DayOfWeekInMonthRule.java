@@ -44,6 +44,8 @@
 
 package org.jfree.date;
 
+import org.jfree.date.SerialDate.*;
+
 /**
  * An annual date rule that specifies the nth day of the week in a given month
  * (for example, the third Wednesday in June, or the last Friday in November).
@@ -65,7 +67,7 @@ public class DayOfWeekInMonthRule extends AnnualDateRule {
      * Default constructor: builds a rule for the first Monday in January by default.
      */
     public DayOfWeekInMonthRule() {
-        this(1, SerialDate.MONDAY, MonthConstants.JANUARY);
+        this(1, Weekday.MONDAY.index, MonthConstants.JANUARY);
     }
 
     /**
@@ -146,7 +148,7 @@ public class DayOfWeekInMonthRule extends AnnualDateRule {
         SerialDate result;
         if (this.count != SerialDate.LAST_WEEK_IN_MONTH) {
             // start at the beginning of the month
-            result = SerialDate.createInstance(1, this.month, year);
+            result = DayDateFactory.makeDate(1, this.month, year);
             while (result.getDayOfWeek() != this.dayOfWeek) {
                 result = SerialDate.addDays(1, result);
             }
@@ -155,7 +157,7 @@ public class DayOfWeekInMonthRule extends AnnualDateRule {
         }
         else {
             // start at the end of the month and work backwards...
-            result = SerialDate.createInstance(1, this.month, year);
+            result = DayDateFactory.makeDate(1, this.month, year);
             result = result.getEndOfCurrentMonth(result);
             while (result.getDayOfWeek() != this.dayOfWeek) {
                 result = SerialDate.addDays(-1, result);

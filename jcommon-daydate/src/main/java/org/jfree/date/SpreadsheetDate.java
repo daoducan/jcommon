@@ -83,6 +83,16 @@ public class SpreadsheetDate extends SerialDate {
     /** For serialization. */
     private static final long serialVersionUID = -2039586705374454461L;
     
+    public static final int SERIAL_LOWER_BOUND = 2;				// 1/1/1900
+
+    public static final int SERIAL_UPPER_BOUND = 2958465;		// 12/31/9999
+    
+    /** The lowest year value supported by this date format. */    //=========Đây là abstract class nên không nên có bất cứ 1 biến cụ thể nào trong đó=============
+    public static final int MINIMUM_YEAR_SUPPORTED = 1900;
+
+    /** The highest year value supported by this date format. */
+    public static final int MAXIMUM_YEAR_SUPPORTED = 9999;
+    
     /** 
      * The day number (1-Jan-1900 = 2, 2-Jan-1900 = 3, ..., 31-Dec-9999 = 
      * 2958465). 
@@ -116,8 +126,8 @@ public class SpreadsheetDate extends SerialDate {
             );
         }
 
-        if ((month >= MonthConstants.JANUARY) 
-                && (month <= MonthConstants.DECEMBER)) {
+        if ((month >= Month.JANUARY.index) 
+                && (month <= Month.DECEMBER.index)) {
             this.month = month;
         }
         else {
@@ -135,6 +145,19 @@ public class SpreadsheetDate extends SerialDate {
 
         // the serial number needs to be synchronised with the day-month-year...
         this.serial = calcSerial(day, month, year);
+
+    }
+    
+    /**
+     * Creates a new date instance.
+     *
+     * @param day  the day (in the range 1 to 28/29/30/31).
+     * @param month  the month (in the range 1 to 12).
+     * @param year  the year (in the range 1900 to 9999).
+     */
+    public SpreadsheetDate(final int day, final Month month, final int year) {
+
+    	this(day, month.index, year);
 
     }
 

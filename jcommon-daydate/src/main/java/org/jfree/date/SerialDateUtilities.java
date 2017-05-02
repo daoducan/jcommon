@@ -49,6 +49,8 @@ package org.jfree.date;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
+import org.jfree.date.SerialDate.*;
+
 /**
  * A utility class that provides a number of useful methods (some static).
  * Many of these are used in the implementation of the day-count convention
@@ -113,25 +115,25 @@ public class SerialDateUtilities {
     public int stringToWeekday(final String s) {
 
         if (s.equals(this.weekdays[Calendar.SATURDAY])) {
-            return SerialDate.SATURDAY;
+            return Weekday.SATURDAY.index;
         }
         else if (s.equals(this.weekdays[Calendar.SUNDAY])) {
-            return SerialDate.SUNDAY;
+            return Weekday.SUNDAY.index;
         }
         else if (s.equals(this.weekdays[Calendar.MONDAY])) {
-            return SerialDate.MONDAY;
+            return Weekday.MONDAY.index;
         }
         else if (s.equals(this.weekdays[Calendar.TUESDAY])) {
-            return SerialDate.TUESDAY;
+            return Weekday.TUESDAY.index;
         }
         else if (s.equals(this.weekdays[Calendar.WEDNESDAY])) {
-            return SerialDate.WEDNESDAY;
+            return Weekday.WEDNESDAY.index;
         }
         else if (s.equals(this.weekdays[Calendar.THURSDAY])) {
-            return SerialDate.THURSDAY;
+            return Weekday.THURSDAY.index;
         }
         else {
-            return SerialDate.FRIDAY;
+            return Weekday.FRIDAY.index;
         }
 
     }
@@ -372,7 +374,7 @@ public class SerialDateUtilities {
             y2 = end.getYYYY();
             for (year = y1; year == y2; year++) {
                 if (SerialDate.isLeapYear(year)) {
-                    feb29 = SerialDate.createInstance(29, MonthConstants.FEBRUARY, year);
+                    feb29 = DayDateFactory.makeDate(29, MonthConstants.FEBRUARY, year);
                     if (feb29.isInRange(start, end, SerialDate.INCLUDE_SECOND)) {
                         count++;
                     }

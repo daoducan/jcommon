@@ -54,6 +54,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -61,6 +62,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import org.jfree.date.DayDateFactory;
 import org.jfree.date.SerialDate;
 
 /**
@@ -119,7 +121,7 @@ public class SerialDateChooserPanel extends JPanel implements ActionListener {
      */
     public SerialDateChooserPanel() {
 
-        this(SerialDate.createInstance(new Date()), false,
+        this(DayDateFactory.makeDate(new Date()), false,
              DEFAULT_DATE_BUTTON_COLOR,
              DEFAULT_MONTH_BUTTON_COLOR);
 
@@ -197,7 +199,7 @@ public class SerialDateChooserPanel extends JPanel implements ActionListener {
 
         if (e.getActionCommand().equals("monthSelectionChanged")) {
             final JComboBox c = (JComboBox) e.getSource();
-            this.date = SerialDate.createInstance(
+            this.date = DayDateFactory.makeDate(
                 this.date.getDayOfMonth(), c.getSelectedIndex() + 1, this.date.getYYYY()
             );
             refreshButtons();
@@ -206,7 +208,7 @@ public class SerialDateChooserPanel extends JPanel implements ActionListener {
             if (!this.refreshing) {
                 final JComboBox c = (JComboBox) e.getSource();
                 final Integer y = (Integer) c.getSelectedItem();
-                this.date = SerialDate.createInstance(
+                this.date = DayDateFactory.makeDate(
                     this.date.getDayOfMonth(), this.date.getMonth(), y.intValue()
                 );
                 refreshYearSelector();
@@ -214,7 +216,7 @@ public class SerialDateChooserPanel extends JPanel implements ActionListener {
             }
         }
         else if (e.getActionCommand().equals("todayButtonClicked")) {
-            setDate(SerialDate.createInstance(new Date()));
+            setDate(DayDateFactory.makeDate(new Date()));
         }
         else if (e.getActionCommand().equals("dateButtonClicked")) {
             final JButton b = (JButton) e.getSource();
@@ -288,7 +290,7 @@ public class SerialDateChooserPanel extends JPanel implements ActionListener {
      */
     protected SerialDate getFirstVisibleDate() {
 
-        SerialDate result = SerialDate.createInstance(1, this.date.getMonth(), this.date.getYYYY());
+        SerialDate result = DayDateFactory.makeDate(1, this.date.getMonth(), this.date.getYYYY());
         result = SerialDate.addDays(-1, result);
         while (result.getDayOfWeek() != getFirstDayOfWeek()) {
             result = SerialDate.addDays(-1, result);

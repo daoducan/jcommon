@@ -62,7 +62,6 @@ import java.io.Serializable;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  *  An abstract class that defines our requirements for manipulating dates,
@@ -84,8 +83,7 @@ import java.util.GregorianCalendar;
  * @author David Gilbert
  */
 public abstract class SerialDate implements Comparable, 
-                                            Serializable, 
-                                            MonthConstants {
+                                            Serializable {
 
     /** For serialization. */
     private static final long serialVersionUID = -293716040467423637L;
@@ -95,46 +93,46 @@ public abstract class SerialDate implements Comparable,
         DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
 
     /** The serial number for 1 January 1900. */
-    public static final int SERIAL_LOWER_BOUND = 2;
+    //public static final int SERIAL_LOWER_BOUND = 2;				// 1/1/1900
 
     /** The serial number for 31 December 9999. */
-    public static final int SERIAL_UPPER_BOUND = 2958465;
+    //public static final int SERIAL_UPPER_BOUND = 2958465;		// 12/31/9999
 
-    /** The lowest year value supported by this date format. */
+    /** The lowest year value supported by this date format. *//*    //=========Đây là abstract class nên không nên có bất cứ 1 biến cụ thể nào trong đó=============
     public static final int MINIMUM_YEAR_SUPPORTED = 1900;
 
-    /** The highest year value supported by this date format. */
-    public static final int MAXIMUM_YEAR_SUPPORTED = 9999;
+    *//** The highest year value supported by this date format. *//*
+    public static final int MAXIMUM_YEAR_SUPPORTED = 9999;*/
 
-    /** Useful constant for Monday. Equivalent to java.util.Calendar.MONDAY. */
+    /** Useful constant for Monday. Equivalent to java.util.Calendar.MONDAY. *//*
     public static final int MONDAY = Calendar.MONDAY;
 
-    /** 
+    *//** 
      * Useful constant for Tuesday. Equivalent to java.util.Calendar.TUESDAY. 
-     */
+     *//*
     public static final int TUESDAY = Calendar.TUESDAY;
 
-    /** 
+    *//** 
      * Useful constant for Wednesday. Equivalent to 
      * java.util.Calendar.WEDNESDAY. 
-     */
+     *//*
     public static final int WEDNESDAY = Calendar.WEDNESDAY;
 
-    /** 
+    *//** 
      * Useful constant for Thrusday. Equivalent to java.util.Calendar.THURSDAY. 
-     */
+     *//*
     public static final int THURSDAY = Calendar.THURSDAY;
 
-    /** Useful constant for Friday. Equivalent to java.util.Calendar.FRIDAY. */
+    *//** Useful constant for Friday. Equivalent to java.util.Calendar.FRIDAY. *//*
     public static final int FRIDAY = Calendar.FRIDAY;
 
-    /** 
+    *//** 
      * Useful constant for Saturday. Equivalent to java.util.Calendar.SATURDAY.
-     */
+     *//*
     public static final int SATURDAY = Calendar.SATURDAY;
 
-    /** Useful constant for Sunday. Equivalent to java.util.Calendar.SUNDAY. */
-    public static final int SUNDAY = Calendar.SUNDAY;
+    *//** Useful constant for Sunday. Equivalent to java.util.Calendar.SUNDAY. *//*
+    public static final int SUNDAY = Calendar.SUNDAY;*/
 
     /** The number of days in each month in non leap years. */
     static final int[] LAST_DAY_OF_MONTH =
@@ -224,7 +222,13 @@ public abstract class SerialDate implements Comparable,
      */
     public static boolean isValidWeekdayCode(final int code) {
 
-        switch(code) {
+    	try {
+    		Weekday.make(code);
+    		return true;
+    	} catch(IllegalArgumentException ex) {
+    		return false;
+    	}
+        /*switch(code) {
             case SUNDAY: 
             case MONDAY: 
             case TUESDAY: 
@@ -235,7 +239,7 @@ public abstract class SerialDate implements Comparable,
                 return true;
             default: 
                 return false;
-        }
+        }*/
 
     }
 
@@ -256,11 +260,11 @@ public abstract class SerialDate implements Comparable,
         int result = -1;
         s = s.trim();
         for (int i = 0; i < weekDayNames.length; i++) {
-            if (s.equals(shortWeekdayNames[i])) {
+            if (s.equalsIgnoreCase(shortWeekdayNames[i])) {
                 result = i;
                 break;
             }
-            if (s.equals(weekDayNames[i])) {
+            if (s.equalsIgnoreCase(weekDayNames[i])) {
                 result = i;
                 break;
             }
@@ -325,23 +329,29 @@ public abstract class SerialDate implements Comparable,
      */
     public static boolean isValidMonthCode(final int code) {
 
-        switch(code) {
-            case JANUARY: 
-            case FEBRUARY: 
-            case MARCH: 
-            case APRIL: 
-            case MAY: 
-            case JUNE: 
-            case JULY: 
-            case AUGUST: 
-            case SEPTEMBER: 
-            case OCTOBER: 
-            case NOVEMBER: 
-            case DECEMBER: 
+    	try {
+    		Month.make(code);
+    		return true;
+    	} catch(IllegalArgumentException ex) {
+    		return false;
+    	}
+        /*switch(code) {
+            case Month.JANUARY.index: 
+            case Month.FEBRUARY.index: 
+            case Month.MARCH.index: 
+            case Month.APRIL.index: 
+            case Month.MAY.index: 
+            case Month.JUNE.index: 
+            case Month.JULY.index: 
+            case Month.AUGUST.index: 
+            case Month.SEPTEMBER.index: 
+            case Month.OCTOBER.index: 
+            case Month.NOVEMBER.index: 
+            case Month.DECEMBER.index: 
                 return true;
             default: 
                 return false;
-        }
+        }*/
 
     }
 
@@ -353,23 +363,23 @@ public abstract class SerialDate implements Comparable,
      * @return the quarter that the month belongs to.
      */
     public static int monthCodeToQuarter(final int code) {
-
-        switch(code) {
-            case JANUARY: 
-            case FEBRUARY: 
-            case MARCH: return 1;
-            case APRIL: 
-            case MAY: 
-            case JUNE: return 2;
-            case JULY: 
-            case AUGUST: 
-            case SEPTEMBER: return 3;
-            case OCTOBER: 
-            case NOVEMBER: 
-            case DECEMBER: return 4;
+    	return 1;
+        /*switch(code) {
+            case Month.JANUARY.index: 
+            case Month.FEBRUARY.index: 
+            case Month.MARCH.index: return 1;
+            case Month.APRIL.index: 
+            case Month.MAY.index: 
+            case Month.JUNE.index: return 2;
+            case Month.JULY.index: 
+            case Month.AUGUST.index: 
+            case Month.SEPTEMBER.index: return 3;
+            case Month.OCTOBER.index: 
+            case Month.NOVEMBER.index: 
+            case Month.DECEMBER.index: return 4;
             default: throw new IllegalArgumentException(
                 "SerialDate.monthCodeToQuarter: invalid month code.");
-        }
+        }*/
 
     }
 
@@ -545,7 +555,7 @@ public abstract class SerialDate implements Comparable,
     public static int lastDayOfMonth(final int month, final int yyyy) {
 
         final int result = LAST_DAY_OF_MONTH[month];
-        if (month != FEBRUARY) {
+        if (month != Month.FEBRUARY.index) {
             return result;
         }
         else if (isLeapYear(yyyy)) {
@@ -569,7 +579,7 @@ public abstract class SerialDate implements Comparable,
     public static SerialDate addDays(final int days, final SerialDate base) {
 
         final int serialDayNumber = base.toSerial() + days;
-        return SerialDate.createInstance(serialDayNumber);
+        return DayDateFactory.makeDate(serialDayNumber);
 
     }
 
@@ -595,7 +605,7 @@ public abstract class SerialDate implements Comparable,
         final int dd = Math.min(
             base.getDayOfMonth(), SerialDate.lastDayOfMonth(mm, yy)
         );
-        return SerialDate.createInstance(dd, mm, yy);
+        return DayDateFactory.makeDate(dd, mm, yy);
 
     }
 
@@ -619,7 +629,7 @@ public abstract class SerialDate implements Comparable,
             baseD, SerialDate.lastDayOfMonth(baseM, targetY)
         );
 
-        return SerialDate.createInstance(targetD, baseM, targetY);
+        return DayDateFactory.makeDate(targetD, baseM, targetY);
 
     }
 
@@ -731,10 +741,8 @@ public abstract class SerialDate implements Comparable,
      * @return a new serial date.
      */
     public SerialDate getEndOfCurrentMonth(final SerialDate base) {
-        final int last = SerialDate.lastDayOfMonth(
-            base.getMonth(), base.getYYYY()
-        );
-        return SerialDate.createInstance(last, base.getMonth(), base.getYYYY());
+        final int last = SerialDate.lastDayOfMonth(getMonth(), base.getYYYY());
+        return DayDateFactory.makeDate(last, base.getMonth(), base.getYYYY());
     }
 
     /**
@@ -790,10 +798,11 @@ public abstract class SerialDate implements Comparable,
      *
      * @return An instance of {@link SerialDate}.
      */
-    public static SerialDate createInstance(final int day, final int month, 
+    /*public static SerialDate createInstance(final int day, final int month, 
                                             final int yyyy) {
-        return new SpreadsheetDate(day, month, yyyy);
-    }
+    	final Month monthEnum = Month.make(month);
+        return new SpreadsheetDate(day, monthEnum, yyyy);
+    }*/
 
     /**
      * Factory method that returns an instance of some concrete subclass of 
@@ -803,9 +812,9 @@ public abstract class SerialDate implements Comparable,
      *
      * @return a instance of SerialDate.
      */
-    public static SerialDate createInstance(final int serial) {
+    /*public static SerialDate createInstance(final int serial) {
         return new SpreadsheetDate(serial);
-    }
+    }*/
 
     /**
      * Factory method that returns an instance of a subclass of SerialDate.
@@ -814,15 +823,15 @@ public abstract class SerialDate implements Comparable,
      *
      * @return a instance of SerialDate.
      */
-    public static SerialDate createInstance(final java.util.Date date) {
+    /*public static SerialDate createInstance(final java.util.Date date) {
 
         final GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         return new SpreadsheetDate(calendar.get(Calendar.DATE),
-                                   calendar.get(Calendar.MONTH) + 1,
+                                   Month.make(calendar.get(Calendar.MONTH) + 1),
                                    calendar.get(Calendar.YEAR));
 
-    }
+    }*/
 
     /**
      * Returns the serial number for the date, where 1 January 1900 = 2 (this
@@ -1031,5 +1040,60 @@ public abstract class SerialDate implements Comparable,
     public SerialDate getNearestDayOfWeek(final int targetDOW) {
         return getNearestDayOfWeek(targetDOW, this);
     }
-
+    
+    public static enum Month {
+    	JANUARY(1),
+    	FEBRUARY(2),
+    	MARCH(3),
+    	APRIL(4),
+    	MAY(5),
+    	JUNE(6),
+    	JULY(7),
+    	AUGUST(8),
+    	SEPTEMBER(9),
+    	OCTOBER(10),
+    	NOVEMBER(11),
+    	DECEMBER(12);
+    	
+    	Month(int index) {
+    		this.index = index;
+    	}
+    	
+    	public static Month make(int monthIndex) {
+    		for (Month m : Month.values()) {
+    			if (m.index == monthIndex) {
+    				return m;
+    			}
+    		}
+    		throw new IllegalArgumentException("Invalid month index " + monthIndex); 
+    	}
+    	public final int index;
+    }
+    
+    public static enum Weekday {
+    	MONDAY(Calendar.MONDAY),
+    	TUESDAY(Calendar.TUESDAY),
+    	WEDNESDAY(Calendar.WEDNESDAY),
+    	THURSDAY(Calendar.THURSDAY),
+    	FRIDAY(Calendar.FRIDAY),
+    	SATURDAY(Calendar.SATURDAY),
+    	SUNDAY(Calendar.SUNDAY);
+    	
+    	Weekday(int index) {
+    		this.index = index;
+    	}
+    	
+    	public static Weekday make(int weekDayIndex) {
+    		for (Weekday m : Weekday.values()) {
+    			if (m.index == weekDayIndex) {
+    				return m;
+    			}
+    		}
+    		throw new IllegalArgumentException("Invalid weekday index " + weekDayIndex); 
+    	}
+    	public int getIndex() {
+    		return this.index;
+    	}
+    	public final int index;
+    }
 }
