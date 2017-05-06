@@ -190,16 +190,13 @@ public class RelativeDayOfWeekRule extends AnnualDateRule {
         	WeekdayRange relativeRange = WeekdayRange.make(this.relative);
             switch (relativeRange) {
                 case LAST:
-                    result = SerialDate.getPreviousDayOfWeek(this.dayOfWeek, 
-                            base);
+                    result = base.getPreviousDayOfWeek(Day.make(this.dayOfWeek));
                     break;
                 case NEAREST:
-                    result = SerialDate.getNearestDayOfWeek(this.dayOfWeek, 
-                            base);
+                    result = base.getNearestDayOfWeek(Day.make(this.dayOfWeek));
                     break;
                 case NEXT:
-                    result = SerialDate.getFollowingDayOfWeek(this.dayOfWeek, 
-                            base);
+                    result = base.getFollowingDayOfWeek(Day.make(this.dayOfWeek));
                     break;
                 default:
                     break;
