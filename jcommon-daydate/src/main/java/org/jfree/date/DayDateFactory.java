@@ -9,7 +9,7 @@ public abstract class DayDateFactory {
 
 	protected abstract SerialDate _makeDate(int ordinal);
 
-	protected abstract SerialDate _makeDate(int day, SerialDate.Month month, int year);
+	protected abstract SerialDate _makeDate(int day, Month month, int year);
 
 	protected abstract SerialDate _makeDate(int day, int month, int year);
 
@@ -23,7 +23,7 @@ public abstract class DayDateFactory {
 		return factory._makeDate(ordinal);
 	}
 
-	public static SerialDate makeDate(int day, SerialDate.Month month, int year) {
+	public static SerialDate makeDate(int day, Month month, int year) {
 		return factory._makeDate(day, month, year);
 	}
 

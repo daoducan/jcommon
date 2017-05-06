@@ -72,7 +72,7 @@ public class RelativeDayOfWeekRule extends AnnualDateRule {
      * Default constructor - builds a rule for the Monday following 1 January.
      */
     public RelativeDayOfWeekRule() {
-        this(new DayAndMonthRule(), Weekday.MONDAY.index, SerialDate.FOLLOWING);
+        this(new DayAndMonthRule(), Weekday.MONDAY.index, WeekdayRange.NEXT.getIndex());
     }
 
     /**
@@ -187,16 +187,17 @@ public class RelativeDayOfWeekRule extends AnnualDateRule {
         final SerialDate base = this.subrule.getDate(year);
 
         if (base != null) {
-            switch (this.relative) {
-                case(SerialDate.PRECEDING):
+        	WeekdayRange relativeRange = WeekdayRange.make(this.relative);
+            switch (relativeRange) {
+                case LAST:
                     result = SerialDate.getPreviousDayOfWeek(this.dayOfWeek, 
                             base);
                     break;
-                case(SerialDate.NEAREST):
+                case NEAREST:
                     result = SerialDate.getNearestDayOfWeek(this.dayOfWeek, 
                             base);
                     break;
-                case(SerialDate.FOLLOWING):
+                case NEXT:
                     result = SerialDate.getFollowingDayOfWeek(this.dayOfWeek, 
                             base);
                     break;

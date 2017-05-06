@@ -9,7 +9,7 @@ public class SpreadsheetDateFactory extends DayDateFactory {
 		return new SpreadsheetDate(ordinal);
 	}
 
-	public SerialDate _makeDate(int day, SerialDate.Month month, int year) {
+	public SerialDate _makeDate(int day, Month month, int year) {
 		return new SpreadsheetDate(day, month, year);
 	}
 
@@ -21,7 +21,7 @@ public class SpreadsheetDateFactory extends DayDateFactory {
 		final GregorianCalendar calendar = new GregorianCalendar();
 		calendar.setTime(date);
 		return new SpreadsheetDate(calendar.get(Calendar.DATE),
-				SerialDate.Month.make(calendar.get(Calendar.MONTH) + 1),
+				Month.make(calendar.get(Calendar.MONTH) + 1),
 				calendar.get(Calendar.YEAR));
 	}
 

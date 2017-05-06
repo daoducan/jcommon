@@ -94,6 +94,13 @@ public class SpreadsheetDate extends SerialDate {
     public static final int MAXIMUM_YEAR_SUPPORTED = 9999;
     
     /** 
+     * The number of days in a leap year up to the end of the preceding month. 
+     */
+    static final int[] 
+            LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
+                {0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366};
+    
+    /** 
      * The day number (1-Jan-1900 = 2, 2-Jan-1900 = 3, ..., 31-Dec-9999 = 
      * 2958465). 
      */
@@ -420,7 +427,7 @@ public class SpreadsheetDate extends SerialDate {
      * @return A boolean.
      */
     public boolean isInRange(final SerialDate d1, final SerialDate d2) {
-        return isInRange(d1, d2, SerialDate.INCLUDE_BOTH);
+        return isInRange(d1, d2, DateInterval.CLOSED.getIndex());
     }
 
     /**
@@ -444,18 +451,18 @@ public class SpreadsheetDate extends SerialDate {
         final int end = Math.max(s1, s2);
         
         final int s = toSerial();
-        if (include == SerialDate.INCLUDE_BOTH) {
+        if (include == DateInterval.CLOSED.getIndex()) {
             return (s >= start && s <= end);
         }
-        else if (include == SerialDate.INCLUDE_FIRST) {
-            return (s >= start && s < end);            
+        else if (include == DateInterval.CLOSED_LEFT.getIndex()) {
+            return (s >= start && s < end);
         }
-        else if (include == SerialDate.INCLUDE_SECOND) {
-            return (s > start && s <= end);            
+        else if (include == DateInterval.CLOSED_RIGHT.getIndex()) {
+            return (s > start && s <= end);
         }
         else {
-            return (s > start && s < end);            
-        }    
+            return (s > start && s < end);
+        }
     }
 
     /**

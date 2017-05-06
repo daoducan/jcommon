@@ -136,9 +136,10 @@ public class DayAndMonthRule extends AnnualDateRule {
     public void setMonth(final int month) {
 
         // check arguments...
-        if (!SerialDate.isValidMonthCode(month)) {
+        /*if (!SerialDate.isValidMonthCode(month)) {
             throw new IllegalArgumentException("DayAndMonthRule(): month code not valid.");
-        }
+        }*/
+        Month.make(month);
 
         // make the change...
         this.month = month;

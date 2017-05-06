@@ -420,7 +420,7 @@ public class DateChooserPanel extends JPanel implements ActionListener {
         final int minMonth = this.chosenDate.getMinimum(Calendar.MONTH);
         final int maxMonth = this.chosenDate.getMaximum(Calendar.MONTH);
         final String[] months = new String[maxMonth - minMonth + 1];
-        System.arraycopy(SerialDate.getMonths(), minMonth, months, 0, 
+        System.arraycopy(SerialDate.getMonthNames(), minMonth, months, 0, 
                 months.length);
 
         this.monthSelector = new JComboBox(months);

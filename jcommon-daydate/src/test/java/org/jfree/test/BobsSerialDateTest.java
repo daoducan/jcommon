@@ -7,12 +7,14 @@ import static org.jfree.date.SerialDate.*;
 import java.util.*;
 
 public class BobsSerialDateTest extends TestCase implements MonthConstants {
-	public void testIsValidWeekdayCode() throws Exception {
-		for (int day = 1; day <= 7; day++)
+	
+	/*public void testIsValidWeekdayCode() throws Exception {
+		for (int day = 1; day <= 7; day++) {
 			assertTrue(isValidWeekdayCode(day));
+		}
 		assertFalse(isValidWeekdayCode(0));
 		assertFalse(isValidWeekdayCode(8));
-	}
+	}*/
 
 	public void testStringToWeekdayCode() throws Exception {
 
@@ -73,29 +75,29 @@ public class BobsSerialDateTest extends TestCase implements MonthConstants {
 		assertEquals("Saturday", SerialDate.weekdayCodeToString(Weekday.SATURDAY.getIndex()));
 	}
 
-	public void testIsValidMonthCode() throws Exception {
+	/*public void testIsValidMonthCode() throws Exception {
 		for (int i = 1; i <= 12; i++)
 			assertTrue(isValidMonthCode(i));
 		assertFalse(isValidMonthCode(0));
 		assertFalse(isValidMonthCode(13));
-	}
+	}*/
 
 	public void testMonthToQuarter() throws Exception {
-		assertEquals(1, monthCodeToQuarter(JANUARY));
-		assertEquals(1, monthCodeToQuarter(FEBRUARY));
-		assertEquals(1, monthCodeToQuarter(MARCH));
-		assertEquals(2, monthCodeToQuarter(APRIL));
-		assertEquals(2, monthCodeToQuarter(MAY));
-		assertEquals(2, monthCodeToQuarter(JUNE));
-		assertEquals(3, monthCodeToQuarter(JULY));
-		assertEquals(3, monthCodeToQuarter(AUGUST));
-		assertEquals(3, monthCodeToQuarter(SEPTEMBER));
-		assertEquals(4, monthCodeToQuarter(OCTOBER));
-		assertEquals(4, monthCodeToQuarter(NOVEMBER));
-		assertEquals(4, monthCodeToQuarter(DECEMBER));
+		assertEquals(1, Month.JANUARY.quarter());
+		assertEquals(1, Month.FEBRUARY.quarter());
+		assertEquals(1, Month.MARCH.quarter());
+		assertEquals(2, Month.APRIL.quarter());
+		assertEquals(2, Month.MAY.quarter());
+		assertEquals(2, Month.JUNE.quarter());
+		assertEquals(3, Month.JULY.quarter());
+		assertEquals(3, Month.AUGUST.quarter());
+		assertEquals(3, Month.SEPTEMBER.quarter());
+		assertEquals(4, Month.OCTOBER.quarter());
+		assertEquals(4, Month.NOVEMBER.quarter());
+		assertEquals(4, Month.DECEMBER.quarter());
 
 		try {
-			monthCodeToQuarter(-1);
+			Month.make(-1);
 			fail("Invalid Month Code should throw exception");
 		} catch (IllegalArgumentException e) {
 		}
@@ -451,8 +453,7 @@ public class BobsSerialDateTest extends TestCase implements MonthConstants {
 		SerialDate d = DayDateFactory.makeDate(2);
 		assertEquals(d(31, JANUARY, 2006),
 				d.getEndOfCurrentMonth(d(1, JANUARY, 2006)));
-		assertEquals(d(28, FEBRUARY, 2006),
-				d.getEndOfCurrentMonth(d(1, FEBRUARY, 2006)));
+		assertEquals(d(28, FEBRUARY, 2006), d.getEndOfCurrentMonth(d(1, FEBRUARY, 2006)));
 		assertEquals(d(31, MARCH, 2006),
 				d.getEndOfCurrentMonth(d(1, MARCH, 2006)));
 		assertEquals(d(30, APRIL, 2006),
@@ -477,11 +478,11 @@ public class BobsSerialDateTest extends TestCase implements MonthConstants {
 	}
 
 	public void testWeekInMonthToString() throws Exception {
-		assertEquals("First", weekInMonthToString(FIRST_WEEK_IN_MONTH));
-		assertEquals("Second", weekInMonthToString(SECOND_WEEK_IN_MONTH));
-		assertEquals("Third", weekInMonthToString(THIRD_WEEK_IN_MONTH));
-		assertEquals("Fourth", weekInMonthToString(FOURTH_WEEK_IN_MONTH));
-		assertEquals("Last", weekInMonthToString(LAST_WEEK_IN_MONTH));
+		assertEquals("First", weekInMonthToString(WeekInMonth.FIRST.getIndex()));
+		assertEquals("Second", weekInMonthToString(WeekInMonth.SECOND.getIndex()));
+		assertEquals("Third", weekInMonthToString(WeekInMonth.THIRD.getIndex()));
+		assertEquals("Fourth", weekInMonthToString(WeekInMonth.FOURTH.getIndex()));
+		assertEquals("Last", weekInMonthToString(WeekInMonth.LAST.getIndex()));
 
 		// todo try {
 		// weekInMonthToString(-1);
@@ -491,9 +492,9 @@ public class BobsSerialDateTest extends TestCase implements MonthConstants {
 	}
 
 	public void testRelativeToString() throws Exception {
-		assertEquals("Preceding", relativeToString(PRECEDING));
-		assertEquals("Nearest", relativeToString(NEAREST));
-		assertEquals("Following", relativeToString(FOLLOWING));
+		assertEquals("Last", relativeToString(WeekdayRange.LAST.getIndex()));
+		assertEquals("Nearest", relativeToString(WeekdayRange.NEAREST.getIndex()));
+		assertEquals("Next", relativeToString(WeekdayRange.NEXT.getIndex()));
 
 		// todo try {
 		// relativeToString(-1000);

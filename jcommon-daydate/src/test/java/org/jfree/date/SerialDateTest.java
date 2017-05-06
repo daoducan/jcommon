@@ -322,8 +322,8 @@ public class SerialDateTest extends TestCase {
     /**
      * A test for bug report 1096282 (now fixed).
      */
-    public void testValidWeekdayCode() {
+    /*public void testValidWeekdayCode() {
         assertTrue(SerialDate.isValidWeekdayCode(1));
         assertTrue(SerialDate.isValidWeekdayCode(7));
-    }
+    }*/
 }

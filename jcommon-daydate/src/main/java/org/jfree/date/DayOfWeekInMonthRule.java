@@ -146,7 +146,7 @@ public class DayOfWeekInMonthRule extends AnnualDateRule {
      */
     public SerialDate getDate(final int year) {
         SerialDate result;
-        if (this.count != SerialDate.LAST_WEEK_IN_MONTH) {
+        if (this.count != WeekInMonth.LAST.getIndex()) {
             // start at the beginning of the month
             result = DayDateFactory.makeDate(1, this.month, year);
             while (result.getDayOfWeek() != this.dayOfWeek) {
