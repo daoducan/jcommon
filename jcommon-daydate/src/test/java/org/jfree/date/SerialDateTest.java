@@ -169,14 +169,14 @@ public class SerialDateTest extends TestCase {
      */
     public void testStringToWeekday() {
 
-        int weekday = SerialDate.stringToWeekdayCode("Wednesday");
-        assertEquals(Weekday.WEDNESDAY.getIndex(), weekday);
+        int weekday = Day.parse("Wednesday").index;
+        assertEquals(Day.WEDNESDAY.index, weekday);
 
-        weekday = SerialDate.stringToWeekdayCode(" Wednesday ");
-        assertEquals(SerialDate.Weekday.WEDNESDAY.getIndex(), weekday);
+        weekday = Day.parse(" Wednesday ").index;
+        assertEquals(Day.WEDNESDAY.index, weekday);
 
-        weekday = SerialDate.stringToWeekdayCode("Wed");
-        assertEquals(SerialDate.Weekday.WEDNESDAY.getIndex(), weekday);
+        weekday = Day.parse("Wed").index;
+        assertEquals(Day.WEDNESDAY.index, weekday);
 
     }
 

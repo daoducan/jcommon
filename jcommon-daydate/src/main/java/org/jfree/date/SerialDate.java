@@ -83,7 +83,7 @@ import java.util.Date;
  *
  * @author David Gilbert
  */
-public abstract class SerialDate implements Comparable, 
+public abstract class SerialDate implements Comparable,
                                             Serializable {
 
     /** For serialization. */
@@ -93,181 +93,9 @@ public abstract class SerialDate implements Comparable,
     public static final DateFormatSymbols
         DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
 
-    /** The serial number for 1 January 1900. */
-    //public static final int SERIAL_LOWER_BOUND = 2;				// 1/1/1900
-
-    /** The serial number for 31 December 9999. */
-    //public static final int SERIAL_UPPER_BOUND = 2958465;		// 12/31/9999
-
-    /** The lowest year value supported by this date format. *//*    //=========Đây là abstract class nên không nên có bất cứ 1 biến cụ thể nào trong đó=============
-    public static final int MINIMUM_YEAR_SUPPORTED = 1900;
-
-    *//** The highest year value supported by this date format. *//*
-    public static final int MAXIMUM_YEAR_SUPPORTED = 9999;*/
-
-    /** Useful constant for Monday. Equivalent to java.util.Calendar.MONDAY. *//*
-    public static final int MONDAY = Calendar.MONDAY;
-
-    *//** 
-     * Useful constant for Tuesday. Equivalent to java.util.Calendar.TUESDAY. 
-     *//*
-    public static final int TUESDAY = Calendar.TUESDAY;
-
-    *//** 
-     * Useful constant for Wednesday. Equivalent to 
-     * java.util.Calendar.WEDNESDAY. 
-     *//*
-    public static final int WEDNESDAY = Calendar.WEDNESDAY;
-
-    *//** 
-     * Useful constant for Thrusday. Equivalent to java.util.Calendar.THURSDAY. 
-     *//*
-    public static final int THURSDAY = Calendar.THURSDAY;
-
-    *//** Useful constant for Friday. Equivalent to java.util.Calendar.FRIDAY. *//*
-    public static final int FRIDAY = Calendar.FRIDAY;
-
-    *//** 
-     * Useful constant for Saturday. Equivalent to java.util.Calendar.SATURDAY.
-     *//*
-    public static final int SATURDAY = Calendar.SATURDAY;
-
-    *//** Useful constant for Sunday. Equivalent to java.util.Calendar.SUNDAY. *//*
-    public static final int SUNDAY = Calendar.SUNDAY;*/
-
-    /** The number of days in each month in non leap years. */
-    /*static final int[] LAST_DAY_OF_MONTH =
-        {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};*/
-
-    /** The number of days in a (non-leap) year up to the end of each month. */
-    /*static final int[] AGGREGATE_DAYS_TO_END_OF_MONTH =
-        {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};*/
-
     /** The number of days in a year up to the end of the preceding month. */
     static final int[] AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
         {0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
-
-    /** The number of days in a leap year up to the end of each month. */
-    /*static final int[] LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_MONTH =
-        {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366};*/
-
-    /** 
-     * The number of days in a leap year up to the end of the preceding month. 
-     */
-    /*static final int[] 
-        LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
-            {0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366};*/
-
-    /** A useful constant for referring to the first week in a month. *//*
-    public static final int FIRST_WEEK_IN_MONTH = 1;
-
-    *//** A useful constant for referring to the second week in a month. *//*
-    public static final int SECOND_WEEK_IN_MONTH = 2;
-
-    *//** A useful constant for referring to the third week in a month. *//*
-    public static final int THIRD_WEEK_IN_MONTH = 3;
-
-    *//** A useful constant for referring to the fourth week in a month. *//*
-    public static final int FOURTH_WEEK_IN_MONTH = 4;
-
-    *//** A useful constant for referring to the last week in a month. *//*
-    public static final int LAST_WEEK_IN_MONTH = 0;*/
-
-    /** Useful range constant. *//*
-    public static final int INCLUDE_NONE = 0;
-
-    *//** Useful range constant. *//*
-    public static final int INCLUDE_FIRST = 1;
-
-    *//** Useful range constant. *//*
-    public static final int INCLUDE_SECOND = 2;
-
-    *//** Useful range constant. *//*
-    public static final int INCLUDE_BOTH = 3;*/
-
-    /** 
-     * Useful constant for specifying a day of the week relative to a fixed 
-     * date. 
-     *//*
-    public static final int PRECEDING = -1;
-
-    *//** 
-     * Useful constant for specifying a day of the week relative to a fixed 
-     * date. 
-     *//*
-    public static final int NEAREST = 0;
-
-    *//** 
-     * Useful constant for specifying a day of the week relative to a fixed 
-     * date. 
-     *//*
-    public static final int FOLLOWING = 1;*/
-
-    /** A description for the date. */
-    //private String description;
-
-    /**
-     * Default constructor.
-     */
-    /*protected SerialDate() {
-    }*/
-
-    /**
-     * Returns <code>true</code> if the supplied integer code represents a 
-     * valid day-of-the-week, and <code>false</code> otherwise.
-     *
-     * @param code  the code being checked for validity.
-     *
-     * @return <code>true</code> if the supplied integer code represents a 
-     *         valid day-of-the-week, and <code>false</code> otherwise.
-     */
-    /*public static boolean isValidWeekdayCode(final int code) {
-
-    	Weekday input = Weekday.make(code);
-        switch(input) {
-            case SUNDAY: 
-            case MONDAY: 
-            case TUESDAY: 
-            case WEDNESDAY: 
-            case THURSDAY: 
-            case FRIDAY: 
-            case SATURDAY: 
-                return true;
-            default: 
-                return false;
-        }
-        
-    }*/
-
-//    /**
-//     * Converts the supplied string to a day of the week.
-//     *
-//     * @param s  a string representing the day of the week.
-//     *
-//     * @return <code>-1</code> if the string is not convertable, the day of 
-//     *         the week otherwise.
-//     */
-    public static int stringToWeekdayCode(String s) {
-
-        final String[] shortWeekdayNames 
-            = DATE_FORMAT_SYMBOLS.getShortWeekdays();
-        final String[] weekDayNames = DATE_FORMAT_SYMBOLS.getWeekdays();
-
-        int result = -1;
-        s = s.trim();
-        for (int i = 0; i < weekDayNames.length; i++) {
-            if (s.equalsIgnoreCase(shortWeekdayNames[i])) {
-                result = i;
-                break;
-            }
-            if (s.equalsIgnoreCase(weekDayNames[i])) {
-                result = i;
-                break;
-            }
-        }
-        return result;
-
-    }
 
     /**
      * Returns a string representing the supplied day-of-the-week.
@@ -292,185 +120,9 @@ public abstract class SerialDate implements Comparable,
      */
     public static String[] getMonthNames() {
 
-        //return getMonths(false);
         return DATE_FORMAT_SYMBOLS.getMonths();
 
     }
-
-    /**
-     * Returns an array of month names.
-     *
-     * @param shortened  a flag indicating that shortened month names should 
-     *                   be returned.
-     *
-     * @return an array of month names.
-     */
-    /*public static String[] getMonths(final boolean shortened) {
-
-        if (shortened) {
-            return DATE_FORMAT_SYMBOLS.getShortMonths();
-        }
-        else {
-            return DATE_FORMAT_SYMBOLS.getMonths();
-        }
-
-    }*/
-
-    /**
-     * Returns true if the supplied integer code represents a valid month.
-     *
-     * @param code  the code being checked for validity.
-     *
-     * @return <code>true</code> if the supplied integer code represents a 
-     *         valid month.
-     */
-    /*public static boolean isValidMonthCode(final int code) {
-
-    	Month input = Month.make(code);
-        switch(input) {
-            case JANUARY:
-            case FEBRUARY:
-            case MARCH:
-            case APRIL:
-            case MAY:
-            case JUNE:
-            case JULY:
-            case AUGUST:
-            case SEPTEMBER:
-            case OCTOBER:
-            case NOVEMBER:
-            case DECEMBER:
-                return true;
-            default:
-                return false;
-        }
-
-    }*/
-
-    /**
-     * Returns the quarter for the specified month.
-     *
-     * @param code  the month code (1-12).
-     *
-     * @return the quarter that the month belongs to.
-     */
-    /*public static int monthCodeToQuarter(final int code) {
-    	Month input = Month.make(code);
-        switch(input) {
-            case JANUARY: 
-            case FEBRUARY: 
-            case MARCH: return 1;
-            case APRIL: 
-            case MAY: 
-            case JUNE: return 2;
-            case JULY: 
-            case AUGUST: 
-            case SEPTEMBER: return 3;
-            case OCTOBER: 
-            case NOVEMBER: 
-            case DECEMBER: return 4;
-            default: throw new IllegalArgumentException(
-                "SerialDate.monthCodeToQuarter: invalid month code.");
-        }
-
-    }*/
-
-    /**
-     * Returns a string representing the supplied month.
-     * <P>
-     * The string returned is the long form of the month name taken from the 
-     * default locale.
-     *
-     * @param month  the month.
-     *
-     * @return a string representing the supplied month.
-     */
-    /*public static String monthCodeToString(final int month) {
-
-        return monthCodeToString(month, false);
-
-    }*/
-
-    /**
-     * Returns a string representing the supplied month.
-     * <P>
-     * The string returned is the long or short form of the month name taken 
-     * from the default locale.
-     *
-     * @param month  the month.
-     * @param shortened  if <code>true</code> return the abbreviation of the 
-     *                   month.
-     *
-     * @return a string representing the supplied month.
-     */
-    /*public static String monthCodeToString(final int month, 
-                                           final boolean shortened) {
-
-        // check arguments...
-        if (!isValidMonthCode(month)) {
-            throw new IllegalArgumentException(
-                "SerialDate.monthCodeToString: month outside valid range.");
-        }
-    	Month.make(month);
-
-        final String[] months;
-
-        if (shortened) {
-            months = DATE_FORMAT_SYMBOLS.getShortMonths();
-        }
-        else {
-            months = DATE_FORMAT_SYMBOLS.getMonths();
-        }
-
-        return months[month - 1];
-
-    }*/
-
-    /**
-     * Converts a string to a month code.
-     * <P>
-     * This method will return one of the constants JANUARY, FEBRUARY, ..., 
-     * DECEMBER that corresponds to the string.  If the string is not 
-     * recognised, this method returns -1.
-     *
-     * @param s  the string to parse.
-     *
-     * @return <code>-1</code> if the string is not parseable, the month of the
-     *         year otherwise.
-     */
-    /*public static int stringToMonthCode(String s) {
-
-        final String[] shortMonthNames = DATE_FORMAT_SYMBOLS.getShortMonths();
-        final String[] monthNames = DATE_FORMAT_SYMBOLS.getMonths();
-
-        int result = -1;
-        s = s.trim();
-
-        // first try parsing the string as an integer (1-12)...
-        try {
-            result = Integer.parseInt(s);
-        }
-        catch (NumberFormatException e) {
-            // suppress
-        }
-
-        // now search through the month names...
-        if ((result < 1) || (result > 12)) {
-            for (int i = 0; i < monthNames.length; i++) {
-                if (s.equals(shortMonthNames[i])) {
-                    result = i + 1;
-                    break;
-                }
-                if (s.equals(monthNames[i])) {
-                    result = i + 1;
-                    break;
-                }
-            }
-        }
-
-        return result;
-
-    }*/
 
     /**
      * Returns true if the supplied integer code represents a valid 
@@ -499,24 +151,12 @@ public abstract class SerialDate implements Comparable,
      * @return <code>true</code> if the specified year is a leap year.
      */
     public static boolean isLeapYear(final int yyyy) {
-
-        /*if ((yyyy % 4) != 0) {
-            return false;
-        }
-        else if ((yyyy % 400) == 0) {
-            return true;
-        }
-        else if ((yyyy % 100) == 0) {
-            return false;
-        }
-        else {
-            return true;
-        }*/
-
+    	
     	boolean fourth = yyyy % 4 == 0;
     	boolean hundredth = yyyy % 100 == 0;
     	boolean fourHundredth = yyyy % 400 == 0;
     	return fourth && (!hundredth || fourHundredth);
+    	
     }
 
     /**
@@ -529,23 +169,13 @@ public abstract class SerialDate implements Comparable,
      * @return the number of the last day of the month.
      */
     public static int lastDayOfMonth(Month month, int yyyy) {
-
-        /*final int result = Month.LAST_DAY_OF_MONTH[month];
-        if (month != Month.FEBRUARY.index) {
-            return result;
-        }
-        else if (isLeapYear(yyyy)) {
-            return result + 1;
-        }
-        else {
-            return result;
-        }*/
     	
         if (month == Month.FEBRUARY && isLeapYear(yyyy)) {
         	return month.lastDay() + 1;
         } else {
         	return month.lastDay();
         }
+        
     }
 
     /**
@@ -558,10 +188,9 @@ public abstract class SerialDate implements Comparable,
      * @return a new date.
      */
     public SerialDate plusDays(final int days) {
-
-        //final int serialDayNumber = base.toSerial() + days;
-        //return DayDateFactory.makeDate(serialDayNumber);
+    	
         return DayDateFactory.makeDate(getOrdinalDay() + days);
+        
     }
 
     /**
@@ -578,15 +207,6 @@ public abstract class SerialDate implements Comparable,
      */
     public SerialDate plusMonths(final int months) {
 
-        /*final int yy = (12 * base.getYear() + base.getMonth() + months - 1) 
-                       / 12;
-        final int mm = (12 * base.getYear() + base.getMonth() + months - 1) 
-                       % 12 + 1;
-        final int dd = Math.min(
-            base.getDayOfMonth(), SerialDate.lastDayOfMonth(Month.make(mm), yy)
-        );
-        return DayDateFactory.makeDate(dd, mm, yy);*/
-    	
     	int thisMonthAsOrdinal = 12 * getYear() + getMonth() - 1;
     	int resultMonthAsOrdinal = thisMonthAsOrdinal + months;
     	int resultYear = resultMonthAsOrdinal / 12;
@@ -607,23 +227,12 @@ public abstract class SerialDate implements Comparable,
      * @return A new date.
      */
     public SerialDate plusYears(final int years) {
-
-        /*final int baseY = base.getYear();
-        final int baseM = base.getMonth();
-        final int baseD = base.getDayOfMonth();
-
-        final int targetY = baseY + years;
-        final int targetD = Math.min(
-            baseD, SerialDate.lastDayOfMonth(Month.make(baseM), targetY)
-        );
-
-        return DayDateFactory.makeDate(targetD, baseM, targetY);*/
 	
     	int resultYear = getYear() + years;
     	int lastDayOfMonthInResultYear = lastDayOfMonth(Month.make(getMonth()), resultYear);
     	int resultDay = Math.min(getDayOfMonth(), lastDayOfMonthInResultYear);
     	return DayDateFactory.makeDate(resultDay, getMonth(), resultYear);
-
+    	
     }
 
     /**
@@ -637,26 +246,6 @@ public abstract class SerialDate implements Comparable,
      *         is BEFORE the base date.
      */
     public SerialDate getPreviousDayOfWeek(Day targetDayOfWeek) {
-
-        // check arguments...
-        /*if (!SerialDate.isValidWeekdayCode(targetWeekday)) {
-            throw new IllegalArgumentException(
-                "Invalid day-of-the-week code."
-            );
-        }*/
-    	/*Day.make(targetWeekday);
-
-        // find the date...
-        final int adjust;
-        final int baseDOW = base.getDayOfWeek();
-        if (baseDOW > targetWeekday) {
-            adjust = Math.min(0, targetWeekday - baseDOW);
-        }
-        else {
-            adjust = -7 + Math.max(0, targetWeekday - baseDOW);
-        }
-
-        return base.plusDays(adjust);*/
 
     	int offsetToTarget = targetDayOfWeek.index - getDayOfWeek().index;
     	if (offsetToTarget >= 0) {
@@ -677,26 +266,6 @@ public abstract class SerialDate implements Comparable,
      *         and is AFTER the base date.
      */
     public SerialDate getFollowingDayOfWeek(Day targetDayOfWeek) {
-
-        // check arguments...
-        /*if (!SerialDate.isValidWeekdayCode(targetWeekday)) {
-            throw new IllegalArgumentException(
-                "Invalid day-of-the-week code."
-            );
-        }*/
-    	/*Day.make(targetWeekday);
-
-        // find the date...
-        final int adjust;
-        final int baseDOW = base.getDayOfWeek();
-        if (baseDOW > targetWeekday) {
-            adjust = 7 + Math.min(0, targetWeekday - baseDOW);
-        }
-        else {
-            adjust = Math.max(0, targetWeekday - baseDOW);
-        }
-
-        return base.plusDays(adjust);*/
     	
     	int offsetToTarget = targetDayOfWeek.index - getDayOfWeek().index;
     	if (offsetToTarget <= 0)
@@ -716,25 +285,6 @@ public abstract class SerialDate implements Comparable,
      */
     public SerialDate getNearestDayOfWeek(final Day targetDay) {
 
-        // check arguments...
-        /*if (!SerialDate.isValidWeekdayCode(targetDOW)) {
-            throw new IllegalArgumentException(
-                "Invalid day-of-the-week code."
-            );
-        }*/
-    	/*Day.make(targetDOW);
-
-        // find the date...
-        final int baseDOW = base.getDayOfWeek();
-        int adjust = -Math.abs(targetDOW - baseDOW);
-        if (adjust >= 4) {
-            adjust = 7 - adjust;
-        }
-        if (adjust <= -4) {
-            adjust = 7 + adjust;
-        }
-        return base.plusDays(adjust);*/
-
     	int offsetToThisWeeksTarget = targetDay.index - getDayOfWeek().index;
     	int offsetToFutureTarget = (offsetToThisWeeksTarget + 7) % 7;
     	int offsetToPreviousTarget = offsetToFutureTarget - 7;
@@ -743,6 +293,7 @@ public abstract class SerialDate implements Comparable,
     	} else {
     		return plusDays(offsetToFutureTarget);
     	}
+    	
     }
 
     /**
@@ -753,106 +304,13 @@ public abstract class SerialDate implements Comparable,
      * @return a new serial date.
      */
     public SerialDate getEndOfMonth() {
-        /*final int last = SerialDate.lastDayOfMonth(
-            Month.make(base.getMonth()), base.getYear()
-        );
-        return DayDateFactory.makeDate(last, base.getMonth(), base.getYear());*/
     	
     	Month month = Month.make(getMonth());
     	int year = getYear();
     	int lastDay = lastDayOfMonth(month, year);
     	return DayDateFactory.makeDate(lastDay, month, year);
+    	
     }
-
-    /**
-     * Returns a string corresponding to the week-in-the-month code.
-     * <P>
-     * Need to find a better approach.
-     *
-     * @param count  an integer code representing the week-in-the-month.
-     *
-     * @return a string corresponding to the week-in-the-month code.
-     */
-    /*public static String weekInMonthToString(final int count) {
-
-    	WeekInMonth input = WeekInMonth.make(count);
-        switch (input) {
-            case FIRST : return "First";
-            case SECOND : return "Second";
-            case THIRD : return "Third";
-            case FOURTH : return "Fourth";
-            case LAST : return "Last";
-            default :
-                return "SerialDate.weekInMonthToString(): invalid code.";
-        }
-
-    }*/
-
-    /**
-     * Returns a string representing the supplied 'relative'.
-     * <P>
-     * Need to find a better approach.
-     *
-     * @param relative  a constant representing the 'relative'.
-     *
-     * @return a string representing the supplied 'relative'.
-     */
-    /*public static String relativeToString(final int relative) {
-
-    	WeekdayRange input = WeekdayRange.make(relative);
-        switch (input) {
-            case LAST: return "Last";
-            case NEAREST: return "Nearest";
-            case NEXT : return "Next";
-            default : return "ERROR : Relative To String";
-        }
-
-    }*/
-
-    /**
-     * Factory method that returns an instance of some concrete subclass of 
-     * {@link SerialDate}.
-     *
-     * @param day  the day (1-31).
-     * @param month  the month (1-12).
-     * @param yyyy  the year (in the range 1900 to 9999).
-     *
-     * @return An instance of {@link SerialDate}.
-     */
-    /*public static SerialDate createInstance(final int day, final int month, 
-                                            final int yyyy) {
-    	final Month monthEnum = Month.make(month);
-        return new SpreadsheetDate(day, monthEnum, yyyy);
-    }*/
-
-    /**
-     * Factory method that returns an instance of some concrete subclass of 
-     * {@link SerialDate}.
-     *
-     * @param serial  the serial number for the day (1 January 1900 = 2).
-     *
-     * @return a instance of SerialDate.
-     */
-    /*public static SerialDate createInstance(final int serial) {
-        return new SpreadsheetDate(serial);
-    }*/
-
-    /**
-     * Factory method that returns an instance of a subclass of SerialDate.
-     *
-     * @param date  A Java date object.
-     *
-     * @return a instance of SerialDate.
-     */
-    /*public static SerialDate createInstance(final java.util.Date date) {
-
-        final GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        return new SpreadsheetDate(calendar.get(Calendar.DATE),
-                                   Month.make(calendar.get(Calendar.MONTH) + 1),
-                                   calendar.get(Calendar.YEAR));
-
-    }*/
 
     /**
      * Returns the serial number for the date, where 1 January 1900 = 2 (this
@@ -862,27 +320,6 @@ public abstract class SerialDate implements Comparable,
      * @return the serial number for the date.
      */
     public abstract int getOrdinalDay();
-
-    /**
-     * Returns the description that is attached to the date.  It is not 
-     * required that a date have a description, but for some applications it 
-     * is useful.
-     *
-     * @return The description (possibly <code>null</code>).
-     */
-    /*public String getDescription() {
-        return this.description;
-    }*/
-
-    /**
-     * Sets the description for the date.
-     *
-     * @param description  the description for this date (<code>null</code> 
-     *                     permitted).
-     */
-    /*public void setDescription(final String description) {
-        this.description = description;
-    }*/
 
     /**
      * Converts the date to a string.
@@ -915,119 +352,7 @@ public abstract class SerialDate implements Comparable,
      */
     public abstract int getDayOfMonth();
 
-    /**
-     * Returns the day of the week.
-     *
-     * @return the day of the week.
-     */
-    //public abstract int getDayOfWeek();
-
-    /**
-     * Returns the difference (in days) between this date and the specified 
-     * 'other' date.
-     * <P>
-     * The result is positive if this date is after the 'other' date and
-     * negative if it is before the 'other' date.
-     *
-     * @param other  the date being compared to.
-     *
-     * @return the difference between this and the other date.
-     */
-    //public abstract int compare(SerialDate other);
-
-    /**
-     * Returns true if this SerialDate represents the same date as the 
-     * specified SerialDate.
-     *
-     * @param other  the date being compared to.
-     *
-     * @return <code>true</code> if this SerialDate represents the same date as 
-     *         the specified SerialDate.
-     */
-    //public abstract boolean isOn(SerialDate other);
-
-    /**
-     * Returns true if this SerialDate represents an earlier date compared to
-     * the specified SerialDate.
-     *
-     * @param other  The date being compared to.
-     *
-     * @return <code>true</code> if this SerialDate represents an earlier date 
-     *         compared to the specified SerialDate.
-     */
-    //public abstract boolean isBefore(SerialDate other);
-
-    /**
-     * Returns true if this SerialDate represents the same date as the 
-     * specified SerialDate.
-     *
-     * @param other  the date being compared to.
-     *
-     * @return <code>true</code> if this SerialDate represents the same date
-     *         as the specified SerialDate.
-     */
-    //public abstract boolean isOnOrBefore(SerialDate other);
-
-    /**
-     * Returns true if this SerialDate represents the same date as the 
-     * specified SerialDate.
-     *
-     * @param other  the date being compared to.
-     *
-     * @return <code>true</code> if this SerialDate represents the same date
-     *         as the specified SerialDate.
-     */
-    //public abstract boolean isAfter(SerialDate other);
-
-    /**
-     * Returns true if this SerialDate represents the same date as the 
-     * specified SerialDate.
-     *
-     * @param other  the date being compared to.
-     *
-     * @return <code>true</code> if this SerialDate represents the same date
-     *         as the specified SerialDate.
-     */
-    //public abstract boolean isOnOrAfter(SerialDate other);
-
     public abstract Day getDayOfWeekForOrdinalZero();
-
-    /**
-     * Returns the latest date that falls on the specified day-of-the-week and
-     * is BEFORE this date.
-     *
-     * @param targetDOW  a code for the target day-of-the-week.
-     *
-     * @return the latest date that falls on the specified day-of-the-week and
-     *         is BEFORE this date.
-     */
-    /*public SerialDate getPreviousDayOfWeek(final int targetDOW) {
-        return this.getPreviousDayOfWeek(targetDOW);
-    }*/
-
-    /**
-     * Returns the earliest date that falls on the specified day-of-the-week
-     * and is AFTER this date.
-     *
-     * @param targetDOW  a code for the target day-of-the-week.
-     *
-     * @return the earliest date that falls on the specified day-of-the-week
-     *         and is AFTER this date.
-     */
-    /*public SerialDate getFollowingDayOfWeek(final int targetDOW) {
-        return getFollowingDayOfWeek(targetDOW, this);
-    }*/
-
-    /**
-     * Returns the nearest date that falls on the specified day-of-the-week.
-     *
-     * @param targetDOW  a code for the target day-of-the-week.
-     *
-     * @return the nearest date that falls on the specified day-of-the-week.
-     */
-    /*public SerialDate getNearestDayOfWeek(final int targetDOW) {
-        return getNearestDayOfWeek(targetDOW, this);
-    }*/
     
     /**
      * Returns the difference (in days) between this date and the specified 
