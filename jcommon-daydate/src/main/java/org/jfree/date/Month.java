@@ -3,7 +3,7 @@ package org.jfree.date;
 import java.text.DateFormatSymbols;
 
 public enum Month {
-	
+
 	JANUARY(1),
 	FEBRUARY(2),
 	MARCH(3),
@@ -16,28 +16,27 @@ public enum Month {
 	OCTOBER(10),
 	NOVEMBER(11),
 	DECEMBER(12);
-	
+
 	public final int index;
-	
+
 	private static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols();
-	
+
 	/** The number of days in each month in non leap years. */
-    static final int[] LAST_DAY_OF_MONTH =
-        {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-	
+	static final int[] LAST_DAY_OF_MONTH = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
 	Month(int index) {
 		this.index = index;
 	}
-	
+
 	public static Month make(int monthIndex) {
 		for (Month m : Month.values()) {
 			if (m.index == monthIndex) {
 				return m;
 			}
 		}
-		throw new IllegalArgumentException("Invalid month index " + monthIndex); 
+		throw new IllegalArgumentException("Invalid month index " + monthIndex);
 	}
-	
+
 	public static Month parse(String s) {
 		s = s.trim();
 		for (Month m : Month.values())
@@ -49,27 +48,28 @@ public enum Month {
 		}
 		throw new IllegalArgumentException("Invalid month " + s);
 	}
-	
+
 	private boolean matches(String s) {
-		return s.equalsIgnoreCase(toString()) || s.equalsIgnoreCase(toShortString());
+		return s.equalsIgnoreCase(toString())
+				|| s.equalsIgnoreCase(toShortString());
 	}
-	
+
 	public int quarter() {
-		return 1 + (index-1)/3;
+		return 1 + (index - 1) / 3;
 	}
-	
+
 	public int lastDay() {
 		return LAST_DAY_OF_MONTH[this.index];
 	}
-	
+
 	public String toString() {
 		return dateFormatSymbols.getMonths()[index - 1];
 	}
-	
+
 	public String toShortString() {
 		return dateFormatSymbols.getShortMonths()[index - 1];
 	}
-	
+
 	public int getIndex() {
 		return this.index;
 	}

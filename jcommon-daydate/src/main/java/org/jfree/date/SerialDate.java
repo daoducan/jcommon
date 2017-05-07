@@ -62,6 +62,7 @@ import java.io.Serializable;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *  An abstract class that defines our requirements for manipulating dates,
@@ -560,7 +561,7 @@ public abstract class SerialDate implements Comparable,
 
         //final int serialDayNumber = base.toSerial() + days;
         //return DayDateFactory.makeDate(serialDayNumber);
-        return DayDateFactory.makeDate(toOrdinal() + days);
+        return DayDateFactory.makeDate(getOrdinalDay() + days);
     }
 
     /**
@@ -657,7 +658,7 @@ public abstract class SerialDate implements Comparable,
 
         return base.plusDays(adjust);*/
 
-    	int offsetToTarget = targetDayOfWeek.index - getDayOfWeek();
+    	int offsetToTarget = targetDayOfWeek.index - getDayOfWeek().index;
     	if (offsetToTarget >= 0) {
     		offsetToTarget -= 7;
     	}
@@ -697,7 +698,7 @@ public abstract class SerialDate implements Comparable,
 
         return base.plusDays(adjust);*/
     	
-    	int offsetToTarget = targetDayOfWeek.index - getDayOfWeek();
+    	int offsetToTarget = targetDayOfWeek.index - getDayOfWeek().index;
     	if (offsetToTarget <= 0)
     		offsetToTarget += 7;
     	return plusDays(offsetToTarget);
@@ -734,7 +735,7 @@ public abstract class SerialDate implements Comparable,
         }
         return base.plusDays(adjust);*/
 
-    	int offsetToThisWeeksTarget = targetDay.index - getDayOfWeek();
+    	int offsetToThisWeeksTarget = targetDay.index - getDayOfWeek().index;
     	int offsetToFutureTarget = (offsetToThisWeeksTarget + 7) % 7;
     	int offsetToPreviousTarget = offsetToFutureTarget - 7;
     	if (offsetToFutureTarget > 3) {
@@ -772,7 +773,7 @@ public abstract class SerialDate implements Comparable,
      *
      * @return a string corresponding to the week-in-the-month code.
      */
-    public static String weekInMonthToString(final int count) {
+    /*public static String weekInMonthToString(final int count) {
 
     	WeekInMonth input = WeekInMonth.make(count);
         switch (input) {
@@ -785,7 +786,7 @@ public abstract class SerialDate implements Comparable,
                 return "SerialDate.weekInMonthToString(): invalid code.";
         }
 
-    }
+    }*/
 
     /**
      * Returns a string representing the supplied 'relative'.
@@ -796,7 +797,7 @@ public abstract class SerialDate implements Comparable,
      *
      * @return a string representing the supplied 'relative'.
      */
-    public static String relativeToString(final int relative) {
+    /*public static String relativeToString(final int relative) {
 
     	WeekdayRange input = WeekdayRange.make(relative);
         switch (input) {
@@ -806,7 +807,7 @@ public abstract class SerialDate implements Comparable,
             default : return "ERROR : Relative To String";
         }
 
-    }
+    }*/
 
     /**
      * Factory method that returns an instance of some concrete subclass of 
@@ -860,15 +861,7 @@ public abstract class SerialDate implements Comparable,
      *
      * @return the serial number for the date.
      */
-    public abstract int toOrdinal();
-
-    /**
-     * Returns a java.util.Date.  Since java.util.Date has more precision than
-     * SerialDate, we need to define a convention for the 'time of day'.
-     *
-     * @return this as <code>java.util.Date</code>.
-     */
-    public abstract java.util.Date toDate();
+    public abstract int getOrdinalDay();
 
     /**
      * Returns the description that is attached to the date.  It is not 
@@ -927,7 +920,7 @@ public abstract class SerialDate implements Comparable,
      *
      * @return the day of the week.
      */
-    public abstract int getDayOfWeek();
+    //public abstract int getDayOfWeek();
 
     /**
      * Returns the difference (in days) between this date and the specified 
@@ -940,7 +933,7 @@ public abstract class SerialDate implements Comparable,
      *
      * @return the difference between this and the other date.
      */
-    public abstract int compare(SerialDate other);
+    //public abstract int compare(SerialDate other);
 
     /**
      * Returns true if this SerialDate represents the same date as the 
@@ -951,7 +944,7 @@ public abstract class SerialDate implements Comparable,
      * @return <code>true</code> if this SerialDate represents the same date as 
      *         the specified SerialDate.
      */
-    public abstract boolean isOn(SerialDate other);
+    //public abstract boolean isOn(SerialDate other);
 
     /**
      * Returns true if this SerialDate represents an earlier date compared to
@@ -962,7 +955,7 @@ public abstract class SerialDate implements Comparable,
      * @return <code>true</code> if this SerialDate represents an earlier date 
      *         compared to the specified SerialDate.
      */
-    public abstract boolean isBefore(SerialDate other);
+    //public abstract boolean isBefore(SerialDate other);
 
     /**
      * Returns true if this SerialDate represents the same date as the 
@@ -973,7 +966,7 @@ public abstract class SerialDate implements Comparable,
      * @return <code>true</code> if this SerialDate represents the same date
      *         as the specified SerialDate.
      */
-    public abstract boolean isOnOrBefore(SerialDate other);
+    //public abstract boolean isOnOrBefore(SerialDate other);
 
     /**
      * Returns true if this SerialDate represents the same date as the 
@@ -984,7 +977,7 @@ public abstract class SerialDate implements Comparable,
      * @return <code>true</code> if this SerialDate represents the same date
      *         as the specified SerialDate.
      */
-    public abstract boolean isAfter(SerialDate other);
+    //public abstract boolean isAfter(SerialDate other);
 
     /**
      * Returns true if this SerialDate represents the same date as the 
@@ -995,34 +988,9 @@ public abstract class SerialDate implements Comparable,
      * @return <code>true</code> if this SerialDate represents the same date
      *         as the specified SerialDate.
      */
-    public abstract boolean isOnOrAfter(SerialDate other);
+    //public abstract boolean isOnOrAfter(SerialDate other);
 
-    /**
-     * Returns <code>true</code> if this {@link SerialDate} is within the 
-     * specified range (INCLUSIVE).  The date order of d1 and d2 is not 
-     * important.
-     *
-     * @param d1  a boundary date for the range.
-     * @param d2  the other boundary date for the range.
-     *
-     * @return A boolean.
-     */
-    public abstract boolean isInRange(SerialDate d1, SerialDate d2);
-
-    /**
-     * Returns <code>true</code> if this {@link SerialDate} is within the 
-     * specified range (caller specifies whether or not the end-points are 
-     * included).  The date order of d1 and d2 is not important.
-     *
-     * @param d1  a boundary date for the range.
-     * @param d2  the other boundary date for the range.
-     * @param include  a code that controls whether or not the start and end 
-     *                 dates are included in the range.
-     *
-     * @return A boolean.
-     */
-    public abstract boolean isInRange(SerialDate d1, SerialDate d2, 
-                                      int include);
+    public abstract Day getDayOfWeekForOrdinalZero();
 
     /**
      * Returns the latest date that falls on the specified day-of-the-week and
@@ -1060,6 +1028,136 @@ public abstract class SerialDate implements Comparable,
     /*public SerialDate getNearestDayOfWeek(final int targetDOW) {
         return getNearestDayOfWeek(targetDOW, this);
     }*/
+    
+    /**
+     * Returns the difference (in days) between this date and the specified 
+     * 'other' date.
+     *
+     * @param other  the date being compared to.
+     *
+     * @return The difference (in days) between this date and the specified 
+     *         'other' date.
+     */
+    public int daysSince(final SerialDate other) {
+        return this.getOrdinalDay() - other.getOrdinalDay();
+    }
+    
+    /**
+     * Returns true if this SerialDate represents the same date as the
+     * specified SerialDate.
+     *
+     * @param other  the date being compared to.
+     *
+     * @return <code>true</code> if this SerialDate represents the same date as
+     *         the specified SerialDate.
+     */
+    public boolean isOn(final SerialDate other) {
+        return (this.getOrdinalDay() == other.getOrdinalDay());
+    }
+    
+    /**
+     * Returns true if this SerialDate represents an earlier date compared to
+     * the specified SerialDate.
+     *
+     * @param other  the date being compared to.
+     *
+     * @return <code>true</code> if this SerialDate represents an earlier date
+     *         compared to the specified SerialDate.
+     */
+    public boolean isBefore(final SerialDate other) {
+        return (this.getOrdinalDay() < other.getOrdinalDay());
+    }
+    
+    /**
+     * Returns true if this SerialDate represents the same date as the
+     * specified SerialDate.
+     *
+     * @param other  the date being compared to.
+     *
+     * @return <code>true</code> if this SerialDate represents the same date
+     *         as the specified SerialDate.
+     */
+    public boolean isOnOrBefore(final SerialDate other) {
+        return (this.getOrdinalDay() <= other.getOrdinalDay());
+    }
+    
+    /**
+     * Returns true if this SerialDate represents the same date as the
+     * specified SerialDate.
+     *
+     * @param other  the date being compared to.
+     *
+     * @return <code>true</code> if this SerialDate represents the same date
+     *         as the specified SerialDate.
+     */
+    public boolean isAfter(final SerialDate other) {
+        return (this.getOrdinalDay() > other.getOrdinalDay());
+    }
+    
+    /**
+     * Returns true if this SerialDate represents the same date as the
+     * specified SerialDate.
+     *
+     * @param other  the date being compared to.
+     *
+     * @return <code>true</code> if this SerialDate represents the same date as
+     *         the specified SerialDate.
+     */
+    public boolean isOnOrAfter(final SerialDate other) {
+        return (this.getOrdinalDay() >= other.getOrdinalDay());
+    }
+    
+    /**
+     * Returns <code>true</code> if this {@link SerialDate} is within the 
+     * specified range (caller specifies whether or not the end-points are 
+     * included).  The date order of d1 and d2 is not important.
+     *
+     * @param d1  a boundary date for the range.
+     * @param d2  the other boundary date for the range.
+     * @param include  a code that controls whether or not the start and end 
+     *                 dates are included in the range.
+     *
+     * @return A boolean.
+     */
+    /*public abstract boolean isInRange(SerialDate d1, SerialDate d2, 
+                                      int include);*/
+    public boolean isInRange(SerialDate d1, SerialDate d2, DateInterval interval) {
+		int left = Math.min(d1.getOrdinalDay(), d2.getOrdinalDay());
+		int right = Math.max(d1.getOrdinalDay(), d2.getOrdinalDay());
+		return interval.isIn(getOrdinalDay(), left, right);
+	}
+    
+    /**
+     * Returns <code>true</code> if this {@link SerialDate} is within the 
+     * specified range (INCLUSIVE).  The date order of d1 and d2 is not 
+     * important.
+     *
+     * @param d1  a boundary date for the range.
+     * @param d2  the other boundary date for the range.
+     *
+     * @return A boolean.
+     */
+    public boolean isInRange(SerialDate d1, SerialDate d2) {
+    	return this.isInRange(d1, d2, DateInterval.CLOSED);
+    }
+    
+    /**
+     * Returns a java.util.Date.  Since java.util.Date has more precision than
+     * SerialDate, we need to define a convention for the 'time of day'.
+     *
+     * @return this as <code>java.util.Date</code>.
+     */
+    public Date toDate() {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(getYear(), getMonth() - 1, getDayOfMonth(), 0, 0, 0);
+        return calendar.getTime();
+    }
+    
+    public Day getDayOfWeek() {
+    	Day startingDay = getDayOfWeekForOrdinalZero();
+    	int startingOffset = startingDay.index - Day.SUNDAY.index;
+    	return Day.make((getOrdinalDay() + startingOffset) % 7 + 1);
+    }
     
     public static enum Weekday {
     	MONDAY(Calendar.MONDAY),
@@ -1113,23 +1211,20 @@ public abstract class SerialDate implements Comparable,
     	public int getIndex() {
     		return this.index;
     	}
-    }
-    
-    public static enum DateInterval {
-    	OPENED(0),
-    	CLOSED_LEFT(1),
-    	CLOSED_RIGHT(2),
-    	CLOSED(3);
     	
-    	public final int index;
-    	
-    	DateInterval(int index) {
-    		this.index = index;
-    	}
-    	
-    	public int getIndex() {
-    		return this.index;
-    	}
+    	public String toString() {
+    		
+            switch (this) {
+                case FIRST : return "First";
+                case SECOND : return "Second";
+                case THIRD : return "Third";
+                case FOURTH : return "Fourth";
+                case LAST : return "Last";
+                default :
+                    return "SerialDate.weekInMonthToString(): invalid code.";
+            }
+            
+        }
     }
     
     public static enum WeekdayRange {
@@ -1155,5 +1250,35 @@ public abstract class SerialDate implements Comparable,
     	public int getIndex() {
     		return this.index;
     	}
+    }
+    
+    public enum DateInterval {
+
+    	OPEN {
+    		@Override
+    		public boolean isIn(int d, int left, int right) {
+    			return false;
+    		}
+    	},
+    	CLOSED_LEFT {
+    		@Override
+    		public boolean isIn(int d, int left, int right) {
+    			return false;
+    		}
+    	},
+    	CLOSED_RIGHT {
+    		@Override
+    		public boolean isIn(int d, int left, int right) {
+    			return false;
+    		}
+    	},
+    	CLOSED {
+    		@Override
+    		public boolean isIn(int d, int left, int right) {
+    			return false;
+    		}
+    	};
+
+    	public abstract boolean isIn(int d, int left, int right);
     }
 }

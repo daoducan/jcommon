@@ -147,7 +147,7 @@ public class SerialDateUtilities {
      * @return the number of days between the start date and the end date.
      */
     public static int dayCountActual(final SerialDate start, final SerialDate end) {
-        return end.compare(start);
+        return end.daysSince(start);
     }
 
     /**
@@ -375,7 +375,7 @@ public class SerialDateUtilities {
             for (year = y1; year == y2; year++) {
                 if (SerialDate.isLeapYear(year)) {
                     feb29 = DayDateFactory.makeDate(29, MonthConstants.FEBRUARY, year);
-                    if (feb29.isInRange(start, end, DateInterval.CLOSED_RIGHT.getIndex())) {
+                    if (feb29.isInRange(start, end, DateInterval.CLOSED_RIGHT)) {
                         count++;
                     }
                 }

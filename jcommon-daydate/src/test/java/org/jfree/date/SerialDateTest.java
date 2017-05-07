@@ -299,7 +299,7 @@ public class SerialDateTest extends TestCase {
      * Miscellaneous tests for the plusMonths() method.
      */
     public void testAddMonths() {
-        SerialDate d1 = DayDateFactory.makeDate(31, 5, 2005);
+        SerialDate d1 = DayDateFactory.makeDate(31, 5, 2004);
         
         SerialDate d2 = d1.plusMonths(1);
         assertEquals(30, d2.getDayOfMonth());

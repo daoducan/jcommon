@@ -238,19 +238,8 @@ public class SpreadsheetDate extends SerialDate {
      *
      * @return The serial number of this date.
      */
-    public int toOrdinal() {
+    public int getOrdinalDay() {
         return this.serial;
-    }
-
-    /**
-     * Returns a <code>java.util.Date</code> equivalent to this date.
-     *
-     * @return The date.
-     */
-    public Date toDate() {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(getYear(), getMonth() - 1, getDayOfMonth(), 0, 0, 0);
-        return calendar.getTime();
     }
 
     /**
@@ -290,9 +279,9 @@ public class SpreadsheetDate extends SerialDate {
      *
      * @return A code representing the day of the week.
      */
-    public int getDayOfWeek() {
+    /*public int getDayOfWeek() {
         return (this.serial + 6) % 7 + 1;
-    }
+    }*/
 
     /**
      * Tests the equality of this date with an arbitrary object.
@@ -309,7 +298,7 @@ public class SpreadsheetDate extends SerialDate {
 
         if (object instanceof SerialDate) {
             final SerialDate s = (SerialDate) object;
-            return (s.toOrdinal() == this.toOrdinal());
+            return (s.getOrdinalDay() == this.getOrdinalDay());
         }
         else {
             return false;
@@ -323,7 +312,7 @@ public class SpreadsheetDate extends SerialDate {
      * @return A hash code.
      */
     public int hashCode() {
-        return toOrdinal();
+        return getOrdinalDay();
     }
 
     /**
@@ -335,9 +324,9 @@ public class SpreadsheetDate extends SerialDate {
      * @return The difference (in days) between this date and the specified 
      *         'other' date.
      */
-    public int compare(final SerialDate other) {
-        return this.serial - other.toOrdinal();
-    }
+    /*public int compare(final SerialDate other) {
+        return this.serial - other.getOrdinalDay();
+    }*/
 
     /**
      * Implements the method required by the Comparable interface.
@@ -348,7 +337,7 @@ public class SpreadsheetDate extends SerialDate {
      *         is less than, equal to, or greater than the specified object.
      */
     public int compareTo(final Object other) {
-        return compare((SerialDate) other);    
+        return daysSince((SerialDate) other);    
     }
     
     /**
@@ -360,9 +349,9 @@ public class SpreadsheetDate extends SerialDate {
      * @return <code>true</code> if this SerialDate represents the same date as
      *         the specified SerialDate.
      */
-    public boolean isOn(final SerialDate other) {
-        return (this.serial == other.toOrdinal());
-    }
+    /*public boolean isOn(final SerialDate other) {
+        return (this.serial == other.getOrdinalDay());
+    }*/
 
     /**
      * Returns true if this SerialDate represents an earlier date compared to
@@ -373,9 +362,9 @@ public class SpreadsheetDate extends SerialDate {
      * @return <code>true</code> if this SerialDate represents an earlier date
      *         compared to the specified SerialDate.
      */
-    public boolean isBefore(final SerialDate other) {
-        return (this.serial < other.toOrdinal());
-    }
+    /*public boolean isBefore(final SerialDate other) {
+        return (this.serial < other.getOrdinalDay());
+    }*/
 
     /**
      * Returns true if this SerialDate represents the same date as the
@@ -386,9 +375,9 @@ public class SpreadsheetDate extends SerialDate {
      * @return <code>true</code> if this SerialDate represents the same date
      *         as the specified SerialDate.
      */
-    public boolean isOnOrBefore(final SerialDate other) {
-        return (this.serial <= other.toOrdinal());
-    }
+    /*public boolean isOnOrBefore(final SerialDate other) {
+        return (this.serial <= other.getOrdinalDay());
+    }*/
 
     /**
      * Returns true if this SerialDate represents the same date as the
@@ -399,9 +388,9 @@ public class SpreadsheetDate extends SerialDate {
      * @return <code>true</code> if this SerialDate represents the same date
      *         as the specified SerialDate.
      */
-    public boolean isAfter(final SerialDate other) {
-        return (this.serial > other.toOrdinal());
-    }
+    /*public boolean isAfter(final SerialDate other) {
+        return (this.serial > other.getOrdinalDay());
+    }*/
 
     /**
      * Returns true if this SerialDate represents the same date as the
@@ -412,9 +401,9 @@ public class SpreadsheetDate extends SerialDate {
      * @return <code>true</code> if this SerialDate represents the same date as
      *         the specified SerialDate.
      */
-    public boolean isOnOrAfter(final SerialDate other) {
-        return (this.serial >= other.toOrdinal());
-    }
+    /*public boolean isOnOrAfter(final SerialDate other) {
+        return (this.serial >= other.getOrdinalDay());
+    }*/
 
     /**
      * Returns <code>true</code> if this {@link SerialDate} is within the 
@@ -426,9 +415,9 @@ public class SpreadsheetDate extends SerialDate {
      *
      * @return A boolean.
      */
-    public boolean isInRange(final SerialDate d1, final SerialDate d2) {
+    /*public boolean isInRange(final SerialDate d1, final SerialDate d2) {
         return isInRange(d1, d2, DateInterval.CLOSED.getIndex());
-    }
+    }*/
 
     /**
      * Returns true if this SerialDate is within the specified range (caller
@@ -443,14 +432,14 @@ public class SpreadsheetDate extends SerialDate {
      * @return <code>true</code> if this SerialDate is within the specified 
      *         range.
      */
-    public boolean isInRange(final SerialDate d1, final SerialDate d2, 
+    /*public boolean isInRange(final SerialDate d1, final SerialDate d2, 
                              final int include) {
-        final int s1 = d1.toOrdinal();
-        final int s2 = d2.toOrdinal();
+        final int s1 = d1.getOrdinalDay();
+        final int s2 = d2.getOrdinalDay();
         final int start = Math.min(s1, s2);
         final int end = Math.max(s1, s2);
         
-        final int s = toOrdinal();
+        final int s = getOrdinalDay();
         if (include == DateInterval.CLOSED.getIndex()) {
             return (s >= start && s <= end);
         }
@@ -463,7 +452,7 @@ public class SpreadsheetDate extends SerialDate {
         else {
             return (s > start && s < end);
         }
-    }
+    }*/
 
     /**
      * Calculate the serial number from the day, month and year.
@@ -506,4 +495,9 @@ public class SpreadsheetDate extends SerialDate {
         return leap4 - leap100 + leap400;
 
     }
+
+	@Override
+	public Day getDayOfWeekForOrdinalZero() {
+		return Day.SATURDAY;
+	}
 }

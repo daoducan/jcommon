@@ -292,7 +292,7 @@ public class SerialDateChooserPanel extends JPanel implements ActionListener {
 
         SerialDate result = DayDateFactory.makeDate(1, this.date.getMonth(), this.date.getYear());
         result = result.plusDays(-1);
-        while (result.getDayOfWeek() != getFirstDayOfWeek()) {
+        while (result.getDayOfWeek().index != getFirstDayOfWeek()) {
             result = result.plusDays(-1);
         }
         return result;
