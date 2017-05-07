@@ -143,7 +143,7 @@ public class SpreadsheetDate extends SerialDate {
             );
         }
 
-        if ((day >= 1) && (day <= SerialDate.lastDayOfMonth(Month.make(month), year))) {
+        if ((day >= 1) && (day <= DateUtil.lastDayOfMonth(Month.fromInt(month), year))) {
             this.day = day;
         }
         else {
@@ -211,7 +211,7 @@ public class SpreadsheetDate extends SerialDate {
       int[] daysToEndOfPrecedingMonth 
           = AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH;
 
-      if (isLeapYear(this.year)) {
+      if (DateUtil.isLeapYear(this.year)) {
           daysToEndOfPrecedingMonth 
               = LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH;
       }
@@ -469,7 +469,7 @@ public class SpreadsheetDate extends SerialDate {
         final int yy = ((y - 1900) * 365) + leapYearCount(y - 1);
         int mm = SerialDate.AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH[m];
         if (m > MonthConstants.FEBRUARY) {
-            if (SerialDate.isLeapYear(y)) {
+            if (DateUtil.isLeapYear(y)) {
                 mm = mm + 1;
             }
         }

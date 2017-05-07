@@ -158,7 +158,7 @@ public class SerialDateTest extends TestCase {
      */
     public void testWeekdayCodeToString() {
 
-        final String test = SerialDate.weekdayCodeToString(Weekday.SATURDAY.getIndex());
+        final String test = DateUtil.weekdayCodeToString(Weekday.SATURDAY.getIndex());
         assertEquals("Saturday", test);
 
     }
@@ -206,7 +206,7 @@ public class SerialDateTest extends TestCase {
     public void testMonthCodeToStringCode() {
 
         //final String test = SerialDate.monthCodeToString(MonthConstants.DECEMBER);
-    	final String test = Month.make(MonthConstants.DECEMBER).toString();
+    	final String test = Month.fromInt(MonthConstants.DECEMBER).toString();
         assertEquals("December", test);
 
     }
@@ -215,14 +215,14 @@ public class SerialDateTest extends TestCase {
      * 1900 is not a leap year.
      */
     public void testIsNotLeapYear1900() {
-        assertTrue(!SerialDate.isLeapYear(1900));
+        assertTrue(!DateUtil.isLeapYear(1900));
     }
 
     /**
      * 2000 is a leap year.
      */
     public void testIsLeapYear2000() {
-        assertTrue(SerialDate.isLeapYear(2000));
+        assertTrue(DateUtil.isLeapYear(2000));
     }
 
     /**

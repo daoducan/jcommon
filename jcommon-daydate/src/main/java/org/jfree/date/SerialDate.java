@@ -88,95 +88,10 @@ public abstract class SerialDate implements Comparable,
 
     /** For serialization. */
     private static final long serialVersionUID = -293716040467423637L;
-    
-    /** Date format symbols. */
-    public static final DateFormatSymbols
-        DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
 
     /** The number of days in a year up to the end of the preceding month. */
-    static final int[] AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
+    public static final int[] AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
         {0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
-
-    /**
-     * Returns a string representing the supplied day-of-the-week.
-     * <P>
-     * Need to find a better approach.
-     *
-     * @param weekday  the day of the week.
-     *
-     * @return a string representing the supplied day-of-the-week.
-     */
-    public static String weekdayCodeToString(final int weekday) {
-
-        final String[] weekdays = DATE_FORMAT_SYMBOLS.getWeekdays();
-        return weekdays[weekday];
-
-    }
-
-    /**
-     * Returns an array of month names.
-     *
-     * @return an array of month names.
-     */
-    public static String[] getMonthNames() {
-
-        return DATE_FORMAT_SYMBOLS.getMonths();
-
-    }
-
-    /**
-     * Returns true if the supplied integer code represents a valid 
-     * week-in-the-month, and false otherwise.
-     *
-     * @param code  the code being checked for validity.
-     * @return <code>true</code> if the supplied integer code represents a 
-     *         valid week-in-the-month.
-     */
-    public static boolean isValidWeekInMonthCode(final int code) {
-    	
-    	try {
-    		WeekInMonth.make(code);
-    		return true;
-    	} catch(IllegalArgumentException e) {
-    		return false;
-    	}
-
-    }
-
-    /**
-     * Determines whether or not the specified year is a leap year.
-     *
-     * @param yyyy  the year (in the range 1900 to 9999).
-     *
-     * @return <code>true</code> if the specified year is a leap year.
-     */
-    public static boolean isLeapYear(final int yyyy) {
-    	
-    	boolean fourth = yyyy % 4 == 0;
-    	boolean hundredth = yyyy % 100 == 0;
-    	boolean fourHundredth = yyyy % 400 == 0;
-    	return fourth && (!hundredth || fourHundredth);
-    	
-    }
-
-    /**
-     * Returns the number of the last day of the month, taking into account 
-     * leap years.
-     *
-     * @param month  the month.
-     * @param yyyy  the year (in the range 1900 to 9999).
-     *
-     * @return the number of the last day of the month.
-     */
-    public static int lastDayOfMonth(Month month, int yyyy) {
-    	
-        if (month == Month.FEBRUARY && isLeapYear(yyyy)) {
-        	return month.lastDay() + 1;
-        } else {
-        	return month.lastDay();
-        }
-        
-    }
 
     /**
      * Creates a new date by adding the specified number of days to the base 
@@ -210,8 +125,8 @@ public abstract class SerialDate implements Comparable,
     	int thisMonthAsOrdinal = 12 * getYear() + getMonth() - 1;
     	int resultMonthAsOrdinal = thisMonthAsOrdinal + months;
     	int resultYear = resultMonthAsOrdinal / 12;
-    	Month resultMonth = Month.make(resultMonthAsOrdinal % 12 + 1);
-    	int lastDayOfResultMonth = lastDayOfMonth(resultMonth, resultYear);
+    	Month resultMonth = Month.fromInt(resultMonthAsOrdinal % 12 + 1);
+    	int lastDayOfResultMonth = DateUtil.lastDayOfMonth(resultMonth, resultYear);
     	int resultDay = Math.min(getDayOfMonth(), lastDayOfResultMonth);
     	return DayDateFactory.makeDate(resultDay, resultMonth, resultYear);
     	
@@ -229,7 +144,7 @@ public abstract class SerialDate implements Comparable,
     public SerialDate plusYears(final int years) {
 	
     	int resultYear = getYear() + years;
-    	int lastDayOfMonthInResultYear = lastDayOfMonth(Month.make(getMonth()), resultYear);
+    	int lastDayOfMonthInResultYear = DateUtil.lastDayOfMonth(Month.fromInt(getMonth()), resultYear);
     	int resultDay = Math.min(getDayOfMonth(), lastDayOfMonthInResultYear);
     	return DayDateFactory.makeDate(resultDay, getMonth(), resultYear);
     	
@@ -305,9 +220,9 @@ public abstract class SerialDate implements Comparable,
      */
     public SerialDate getEndOfMonth() {
     	
-    	Month month = Month.make(getMonth());
+    	Month month = Month.fromInt(getMonth());
     	int year = getYear();
-    	int lastDay = lastDayOfMonth(month, year);
+    	int lastDay = DateUtil.lastDayOfMonth(month, year);
     	return DayDateFactory.makeDate(lastDay, month, year);
     	
     }
@@ -327,7 +242,7 @@ public abstract class SerialDate implements Comparable,
      * @return  a string representation of the date.
      */
     public String toString() {
-        return getDayOfMonth() + "-" + Month.make(getMonth()).toString()
+        return getDayOfMonth() + "-" + Month.fromInt(getMonth()).toString()
                                + "-" + getYear();
     }
 
@@ -481,7 +396,7 @@ public abstract class SerialDate implements Comparable,
     public Day getDayOfWeek() {
     	Day startingDay = getDayOfWeekForOrdinalZero();
     	int startingOffset = startingDay.index - Day.SUNDAY.index;
-    	return Day.make((getOrdinalDay() + startingOffset) % 7 + 1);
+    	return Day.fromInt((getOrdinalDay() + startingOffset) % 7 + 1);
     }
     
 }

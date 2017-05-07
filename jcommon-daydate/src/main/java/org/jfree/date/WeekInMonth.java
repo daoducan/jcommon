@@ -7,7 +7,7 @@ public enum WeekInMonth {
 	FOURTH(4),
 	LAST(0);
 	
-	public static WeekInMonth make(int weekInMonthIndex) {
+	public static WeekInMonth fromInt(int weekInMonthIndex) {
 		for (WeekInMonth wm : WeekInMonth.values()) {
 			if (wm.index == weekInMonthIndex) {
 				return wm;

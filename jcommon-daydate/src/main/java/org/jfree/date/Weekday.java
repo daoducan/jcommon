@@ -15,7 +15,7 @@ public enum Weekday {
 		this.index = index;
 	}
 	
-	public static Weekday make(int weekDayIndex) {
+	public static Weekday fromInt(int weekDayIndex) {
 		for (Weekday m : Weekday.values()) {
 			if (m.index == weekDayIndex) {
 				return m;

@@ -28,7 +28,7 @@ public enum Month {
 		this.index = index;
 	}
 
-	public static Month make(int monthIndex) {
+	public static Month fromInt(int monthIndex) {
 		for (Month m : Month.values()) {
 			if (m.index == monthIndex) {
 				return m;
@@ -43,7 +43,7 @@ public enum Month {
 			if (m.matches(s))
 				return m;
 		try {
-			return make(Integer.parseInt(s));
+			return fromInt(Integer.parseInt(s));
 		} catch (NumberFormatException e) {
 		}
 		throw new IllegalArgumentException("Invalid month " + s);

@@ -20,7 +20,7 @@ public enum Day {
 		this.index = day;
 	}
 
-	public static Day make(int index) throws IllegalArgumentException {
+	public static Day fromInt(int index) throws IllegalArgumentException {
 		for (Day d : Day.values()) {
 			if (d.index == index) {
 				return d;

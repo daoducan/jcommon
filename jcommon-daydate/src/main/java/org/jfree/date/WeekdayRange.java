@@ -5,7 +5,7 @@ public enum WeekdayRange {
 	NEAREST(0),
 	NEXT(1);
 	
-	public static WeekdayRange make(int weekdayRangeIndex) {
+	public static WeekdayRange fromInt(int weekdayRangeIndex) {
 		for (WeekdayRange wr : WeekdayRange.values()) {
 			if (wr.index == weekdayRangeIndex) {
 				return wr;
